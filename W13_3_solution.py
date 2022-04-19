@@ -25,15 +25,7 @@ with open('pressure_partial.csv') as csv_file:
           if(smallestNumber>float(row[1])):
             smallestNumber = float(row[1])
 
-          line_count += 1
-          if(line_count > num_of_lines_to_process):
-            break
-    print(f'Processed {line_count} lines.')
-print(len(pressures))
-print(f'the max pressure {biggestNumber}')
-print(f'the min pressure {smallestNumber}')
-print(f'pressure is {pressures[0][0]} at {pressures[0][1]}' )
-
+        
 temperature = []
 num_of_lines_to_process = 2000
 biggestNum = 0
@@ -42,12 +34,29 @@ with open('temperature_partial.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     linecount = 0
     for row in csv_reader: 
-      if linecount ==0:
-        print(f'Column names are {", ".join(row)}')
-        linecount += 1
+        if linecount ==0:
+          print(f'Column names are {", ".join(row)}')
+          linecount += 1
 
     else:
-      if (linecount == 1):
-        biggestNum = float(row[1])
-        smallestNum = float(row[1])
-      print(f'temperature: \t{row[1]}')
+        if (linecount == 1):
+          biggestNum = float(row[1])
+          smallestNum = float(row[1])
+        print(f'temperature: \t{row[1]}')
+        temperature.append([row[1],row[3]])
+
+        if(biggestNum<float(row[1])):
+          biggestNum = float(row[1])
+        if(smallestNum>float(row[1])):
+          smallestNum = float(row[1])
+
+          linecount += 1 
+        if(line_count > num_of_lines_to_process):
+          break
+  print(f'Processed {line_count} lines.')
+print(len(temperature))
+print(f'temperature is {temperature[0][0]} at {temperature[0][1]}' )
+print(len(pressures))
+print(f'the max pressure {biggestNumber}')
+print(f'the min pressure {smallestNumber}')
+print(f'pressure is {pressures[0][0]} at {pressures[0][1]}' )
